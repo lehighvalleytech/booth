@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>LVTech - Booth Stream</title>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.6/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="/app.js"></script>
+  <script src="/videogular.min.js"></script>
+  <style>
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body ng-app="boothApp">
+  <div class="container" ng-controller="BoothShootCtrl">
+    <h1>LVTech Booth Bot</h1>
+
+    <!-- show the button if we're posing -->
+    <div class="row" ng-show="pose">
+      <button ng-click="start()" type="button" class="btn btn-lg btn-warning">Start</button>
+    </div>
+
+    <!-- show when taking the photo -->
+    <div class="row" ng-show="shooting">
+      <div class="alert alert-info">Taking your photo.</div>
+    </div>
+
+    <!-- show if nothing is ready yet -->
+    <div class="row" ng-show="processing">
+      <div class="alert alert-success">Processing your photo.</div>
+    </div>
+
+
+    <!-- show contact form to the original viewers -->
+    <div class="row" ng-show="org">
+      <h2>Save Your Photos</h2>
+      <div class="col-xs-12 col-md-4" ng-hide="shoot.email">
+        <input type="text" class="form-control" ng-model="email" placeholder="Email (optional)" />
+      </div>
+      <div class="col-xs-12 col-md-4" ng-hide="shoot.phone">
+        <input type="text" class="form-control" ng-model="phone" placeholder="Phone (optional)" />
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <button ng-click="save()" type="button" class="btn btn-primary">Send Me A Link</button>
+      </div>
+    </div>
+
+    <!-- show images if we have some -->
+    <div class="row" ng-show="shoot.images">
+      <h2>Photo Strip</h2>
+      <div class="col-xs-12 col-md-3" ng-repeat="image in shoot.images">
+        <img class="img-responsive" ng-src="{{image}}" />
+      </div>
+    </div>
+
+    <!-- show video if we have it -->
+    <div class="row" ng-show="shoot.videos">
+      <h2>SloMo Cam</h2>
+      <div class="col-xs-12 col-md-12" ng-repeat="video in shoot.videos">
+        <div videogular>
+          <video controls muted preload='auto'>
+            <source ng-src='{{trustUrl(video)}}'>
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</body>
+</html>

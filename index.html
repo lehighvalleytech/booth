@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>LVTech - Booth Stream</title>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.6/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="/app.js"></script>
+  <script src="/videogular.min.js"></script>
+  <style>
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body ng-app="boothApp">
+  <div class="container" ng-controller="BoothBlogCtrl">
+    <h1>From the LVTech Booth Bot</h1>
+
+    <!-- The Blog Thing -->
+    <div class="row" ng-repeat="shoot in collection._embedded.shoots">
+      <!-- Date, if there is one. -->
+      <div class="col-xs-12 col-md-12"><h3>{{shoot.created}}</h3></div>
+      <!-- Video -->
+      <div class="col-xs-12 col-md-12" ng-repeat="video in shoot.videos">
+        <div videogular>
+          <video controls muted preload='auto'>
+            <source ng-src='{{trustUrl(video)}}'>
+          </video>
+        </div>
+      </div>
+      <!-- All the images -->
+      <div class="col-xs-12 col-md-3" ng-repeat="image in shoot.images">
+        <img class="img-responsive" ng-src="{{image}}" />
+      </div>
+    </div>
+    <!-- End of Blog -->
+
+    <!-- Some links -->
+    <div class="row">
+      <ul class="pager">
+        <li ng-show="collection._links.prev" class="previous"><a ng-click="page(collection._links.prev.href)" href="#">&larr; Previous</a></li>
+        <li ng-show="collection._links.next" class="next"><a ng-click="page(collection._links.next.href)" href="#">Next &rarr;</a></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
