@@ -16,13 +16,13 @@ boothApp.controller('BoothBlogCtrl', ['$scope', '$http', '$sce',
             });
         };
 
-        $scope.page('https://ewp-tjlytle.fwd.wf/shoots?count=3');
+        $scope.page('http://robo.lehighvalleytech.org/shoots?count=3');
     }]);
 
 boothApp.controller('BoothShootCtrl', ['$scope', '$http', '$sce', '$location', '$timeout',
     function ($scope, $http, $sce, $location, $timeout) {
         $scope.id = $location.path();
-        $scope.url = 'https://ewp-tjlytle.fwd.wf/shoots' + $scope.id;
+        $scope.url = 'http://robo.lehighvalleytech.org/shoots' + $scope.id;
 
         $scope.trustUrl = function(url) {
             return $sce.trustAsResourceUrl(url);
