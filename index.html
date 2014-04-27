@@ -25,7 +25,7 @@
     <!-- The Blog Thing -->
     <div class="row" ng-repeat="shoot in collection._embedded.shoots">
       <!-- Date, if there is one. -->
-      <div class="col-xs-12 col-md-12"><h3>{{shoot.created}}</h3></div>
+      <div class="col-xs-12 col-md-12"><h3><a href="/view#{{shoot.id}}">{{shoot.created}}</a></h3></div>
       <!-- Video -->
       <div class="col-xs-12 col-md-12" ng-repeat="video in shoot.videos">
         <div videogular>
